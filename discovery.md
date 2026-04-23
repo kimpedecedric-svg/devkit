@@ -37,3 +37,18 @@ Dans cette phase, j'ai structuré l'outil `devkit` pour orchestrer les commandes
 - **Gestion du PYTHONPATH** : Nécessité d'exporter le chemin `src` pour que les imports Python fonctionnent.
 - **Dépréciation de gh-copilot** : Observation de l'avertissement de GitHub, ce qui confirme l'importance de surveiller les dépendances.
 - **Mode multi-commandes Typer** : Apprentissage du fonctionnement des groupes de commandes pour éviter que Typer ne traite le script comme une commande unique.
+
+---
+## Phase 3 - Intégration de l'IA (Gemini)
+
+L'outil intègre désormais l'IA pour assister le développeur.
+
+### Réalisations
+- Création d'un module `src/devkit/utils/ai.py` utilisant le SDK `google-genai`.
+- Implémentation d'un système de **fallback** et de **retry** pour gérer les limites de l'API (Erreurs 429 et 404).
+- Commande `devkit suggest` pour interroger l'IA depuis le terminal.
+
+### Analyse technique des limites
+Durant les tests, j'ai rencontré des erreurs `429 RESOURCE_EXHAUSTED`. Cela démontre :
+1. La bonne communication entre mon script et les serveurs de Google.
+2. La nécessité de gérer les quotas d'API dans un outil de production.

@@ -2,6 +2,7 @@ import typer
 from rich.console import Console
 from rich.table import Table
 from devkit.utils.gh import gh_json
+from devkit.utils.ai import ask_gemini
 
 # 1. On crée l'objet principal
 app = typer.Typer()
@@ -51,6 +52,16 @@ def prs():
         table.add_row(str(item['number']), item['title'], item['author']['login'])
 
     console.print(table)
+
+@app.command()
+def suggest(query: str):
+    """Demande une suggestion à l'IA pour une tâche donnée."""
+    console = Console()
+    with console.status("[bold green]L'IA réfléchit..."):
+        result = ask_gemini(query)
+    
+    console.print("\n[bold]Suggestion de Gemini :[/bold]")
+    console.print(result)
 
 if __name__ == "__main__":
     app()
