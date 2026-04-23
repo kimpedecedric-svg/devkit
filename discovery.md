@@ -19,3 +19,21 @@
 -**fzf** : Un moteur de recherche floue pour retrouver des fichiers ou des commandes.
 -**bat** : Remplace `cat` avec de la coloration syntaxique.
 -**delta** : Rend l'affichage des `git diff` beaucoup plus lisible.
+
+---
+## Phase 2 - Architecture et Orchestration Python
+
+Dans cette phase, j'ai structuré l'outil `devkit` pour orchestrer les commandes `gh`.
+
+### Architecture du projet
+- `src/devkit/utils/gh.py` : Module de base pour exécuter les commandes système et parser le JSON.
+- `src/devkit/main.py` : Point d'entrée utilisant **Typer** pour les commandes et **Rich** pour l'interface.
+
+### Commandes implémentées
+- `devkit issues` : Récupère les tickets via `gh issue list --json` et les affiche dans un tableau formaté.
+- `devkit prs` : Récupère les Pull Requests et permet une lecture rapide du statut du dépôt.
+
+### Défis techniques rencontrés
+- **Gestion du PYTHONPATH** : Nécessité d'exporter le chemin `src` pour que les imports Python fonctionnent.
+- **Dépréciation de gh-copilot** : Observation de l'avertissement de GitHub, ce qui confirme l'importance de surveiller les dépendances.
+- **Mode multi-commandes Typer** : Apprentissage du fonctionnement des groupes de commandes pour éviter que Typer ne traite le script comme une commande unique.
